@@ -10,8 +10,8 @@ VPS_HOST="91.107.204.141"        # IP вашего VPS
 VPS_USER="root"                  # Пользователь для подключения
 VPS_PORT="22"                    # SSH порт
 PROJECT_DIR="/var/www/cv-project" # Директория проекта на VPS
-GIT_REPO="https://github.com/mennekis/CV-project.git" # URL репозитория
-BRANCH="test-payments"           # Ветка для деплоя
+GIT_REPO="https://github.com/AlfaSFS/WPDeploySea" # URL репозитория
+BRANCH="main"           # Ветка для деплоя
 
 # ===== ЦВЕТА ДЛЯ ВЫВОДА =====
 RED='\033[0;31m'
