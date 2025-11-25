@@ -1,0 +1,39 @@
+# WordPress core files
+/wp-admin
+/wp-includes
+/wordpress/wp-admin
+/wordpress/wp-includes
+
+# WordPress content
+/wordpress/wp-content/plugins
+/wordpress/wp-content/uploads
+/wordpress/wp-content/cache
+
+# Dependencies
+/backend/node_modules
+/vendor
+/dist
+
+# Static examples (do not touch)
+# /verstka
+
+# Minified files
+*.min.*
+*.old
+*.bak
+
+# Environment files
+.env
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode
+.idea

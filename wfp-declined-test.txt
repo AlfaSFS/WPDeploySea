@@ -1,0 +1,54 @@
+=== WayForPay Real Declined E2E Test ===
+1. Создание заказа для реального Declined теста...
+{
+  "id": "fb30493c-df21-4e47-927e-8bffa93b9d4f",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_merch_n1",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "fb30493c-df21-4e47-927e-8bffa93b9d4f",
+    "orderDate": 1759166844,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "Declined",
+    "clientLastName": "Test",
+    "clientEmail": "declined-test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=fb30493c-df21-4e47-927e-8bffa93b9d4f",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #fb30493c-df21-4e47-927e-8bffa93b9d4f"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "41ae8b2052b68b207365119ba734d52f"
+  }
+}
+
+2. Проверка начального статуса заказа...
+{
+  "id": "fb30493c-df21-4e47-927e-8bffa93b9d4f",
+  "status": "pending",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": false
+}
+
+3. Проверка страницы /payment-success...
+URL: https://seafarer-cv.com/payment-success?order=fb30493c-df21-4e47-927e-8bffa93b9d4f
+
+4. Готовность к реальному Declined тесту:
+✅ Заказ создан: fb30493c-df21-4e47-927e-8bffa93b9d4f
+✅ Страница /payment-success настроена с пуллингом
+✅ Кнопка 'Спробувати ще раз' работает
+✅ Логи [WFP] готовы к мониторингу

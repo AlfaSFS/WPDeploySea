@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>CV Services - WayForPay Integration</title>
+      <style>
+         body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+         }
+         .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+         }
+         .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            border-radius: 5px;
+         }
+         .service-item.selected {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+         }
+         .checkbox {
+            margin-right: 15px;
+         }
+         .service-info {
+            flex-grow: 1;
+         }
+         .service-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+         }
+         .service-description {
+            color: #666;
+            font-size: 14px;
+         }
+         .service-price {
+            font-weight: bold;
+            color: #2196f3;
+            font-size: 18px;
+         }
+         .form-group {
+            margin: 20px 0;
+         }
+         .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+         }
+         .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+         }
+         .total {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+         }
+         .total-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2196f3;
+         }
+         .btn {
+            background-color: #2196f3;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+         }
+         .btn:hover {
+            background-color: #1976d2;
+         }
+         .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+         }
+         .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+         }
+         .error {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+         }
+         .success {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1>🚢 CV Services для моряков</h1>
+         <p>Выберите необходимые услуги и оплатите через WayForPay</p>
+
+         <div class="error" id="error"></div>
+         <div class="success" id="success"></div>
+
+         <!-- Список услуг -->
+         <div id="services">
+            <div
+               class="service-item"
+               data-name="CV Writing Service"
+               data-price="80"
+            >
+               <input type="checkbox" class="checkbox" id="service1" />
+               <div class="service-info">
+                  <div class="service-name">Написание CV</div>
+                  <div class="service-description">
+                     Профессиональное составление резюме для моряков
+                  </div>
+               </div>
+               <div class="service-price">80 UAH</div>
+            </div>
+
+            <div
+               class="service-item"
+               data-name="CV Translation"
+               data-price="40"
+            >
+               <input type="checkbox" class="checkbox" id="service2" />
+               <div class="service-info">
+                  <div class="service-name">Перевод CV</div>
+                  <div class="service-description">
+                     Перевод резюме на английский язык
+                  </div>
+               </div>
+               <div class="service-price">40 UAH</div>
+            </div>
+
+            <div
+               class="service-item"
+               data-name="Email Distribution"
+               data-price="30"
+            >
+               <input type="checkbox" class="checkbox" id="service3" />
+               <div class="service-info">
+                  <div class="service-name">Рассылка по компаниям</div>
+                  <div class="service-description">
+                     Отправка CV в морские компании
+                  </div>
+               </div>
+               <div class="service-price">30 UAH</div>
+            </div>
+
+            <div class="service-item" data-name="Cover Letter" data-price="25">
+               <input type="checkbox" class="checkbox" id="service4" />
+               <div class="service-info">
+                  <div class="service-name">Сопроводительное письмо</div>
+                  <div class="service-description">
+                     Персональное письмо для каждой вакансии
+                  </div>
+               </div>
+               <div class="service-price">25 UAH</div>
+            </div>
+         </div>
+
+         <!-- Форма заказа -->
+         <form id="orderForm">
+            <div class="form-group">
+               <label for="email">Email *</label>
+               <input type="email" id="email" required />
+            </div>
+
+            <div class="form-group">
+               <label for="firstName">Имя *</label>
+               <input type="text" id="firstName" required />
+            </div>
+
+            <div class="form-group">
+               <label for="lastName">Фамилия *</label>
+               <input type="text" id="lastName" required />
+            </div>
+
+            <div class="form-group">
+               <label for="phone">Телефон *</label>
+               <input
+                  type="tel"
+                  id="phone"
+                  placeholder="+380501234567"
+                  required
+               />
+            </div>
+
+            <!-- Итого -->
+            <div class="total">
+               <div>Итого к оплате:</div>
+               <div class="total-amount" id="totalAmount">0 UAH</div>
+            </div>
+
+            <button type="submit" class="btn" id="payButton" disabled>
+               💳 Оплатить через WayForPay
+            </button>
+         </form>
+
+         <div class="loading" id="loading">
+            <p>Создание заказа...</p>
+         </div>
+      </div>
+
+      <script>
+         // Данные услуг
+         const services = [
+            { name: "CV Writing Service", price: 80 },
+            { name: "CV Translation", price: 40 },
+            { name: "Email Distribution", price: 30 },
+            { name: "Cover Letter", price: 25 },
+         ];
+
+         // Обновление итоговой суммы
+         function updateTotal() {
+            const checkboxes = document.querySelectorAll(
+               '.service-item input[type="checkbox"]:checked'
+            );
+            let total = 0;
+            let selectedItems = [];
+
+            checkboxes.forEach((checkbox) => {
+               const serviceItem = checkbox.closest(".service-item");
+               const price = parseInt(serviceItem.dataset.price);
+               const name = serviceItem.dataset.name;
+
+               total += price;
+               selectedItems.push({
+                  name: name,
+                  price: price,
+                  count: 1,
+               });
+            });
+
+            document.getElementById("totalAmount").textContent = `${total} UAH`;
+
+            // Активируем кнопку оплаты если есть выбранные услуги
+            const payButton = document.getElementById("payButton");
+            payButton.disabled = total === 0;
+
+            return { total, selectedItems };
+         }
+
+         // Обработка изменения чекбоксов
+         document
+            .querySelectorAll('.service-item input[type="checkbox"]')
+            .forEach((checkbox) => {
+               checkbox.addEventListener("change", function () {
+                  const serviceItem = this.closest(".service-item");
+                  if (this.checked) {
+                     serviceItem.classList.add("selected");
+                  } else {
+                     serviceItem.classList.remove("selected");
+                  }
+                  updateTotal();
+               });
+            });
+
+         // Обработка отправки формы
+         document
+            .getElementById("orderForm")
+            .addEventListener("submit", async function (e) {
+               e.preventDefault();
+
+               const { total, selectedItems } = updateTotal();
+
+               if (total === 0) {
+                  showError("Выберите хотя бы одну услугу");
+                  return;
+               }
+
+               const orderData = {
+                  email: document.getElementById("email").value,
+                  amount: total,
+                  currency: "UAH",
+                  items: selectedItems,
+                  first_name: document.getElementById("firstName").value,
+                  last_name: document.getElementById("lastName").value,
+                  phone: document.getElementById("phone").value,
+               };
+
+               try {
+                  showLoading(true);
+                  hideError();
+                  hideSuccess();
+
+                  const response = await fetch("/api/orders", {
+                     method: "POST",
+                     headers: {
+                        "Content-Type": "application/json",
+                     },
+                     body: JSON.stringify(orderData),
+                  });
+
+                  const result = await response.json();
+
+                  if (response.ok) {
+                     showSuccess(`Заказ создан! ID: ${result.id}`);
+
+                     // Перенаправляем на WayForPay
+                     if (result.payment_url) {
+                        setTimeout(() => {
+                           window.location.href = result.payment_url;
+                        }, 2000);
+                     }
+                  } else {
+                     showError(
+                        `Ошибка создания заказа: ${
+                           result.error || "Неизвестная ошибка"
+                        }`
+                     );
+                  }
+               } catch (error) {
+                  showError(`Ошибка сети: ${error.message}`);
+               } finally {
+                  showLoading(false);
+               }
+            });
+
+         // Вспомогательные функции
+         function showError(message) {
+            const errorDiv = document.getElementById("error");
+            errorDiv.textContent = message;
+            errorDiv.style.display = "block";
+         }
+
+         function hideError() {
+            document.getElementById("error").style.display = "none";
+         }
+
+         function showSuccess(message) {
+            const successDiv = document.getElementById("success");
+            successDiv.textContent = message;
+            successDiv.style.display = "block";
+         }
+
+         function hideSuccess() {
+            document.getElementById("success").style.display = "none";
+         }
+
+         function showLoading(show) {
+            document.getElementById("loading").style.display = show
+               ? "block"
+               : "none";
+            document.getElementById("payButton").disabled = show;
+         }
+
+         // Инициализация
+         updateTotal();
+      </script>
+   </body>
+</html>

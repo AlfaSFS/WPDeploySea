@@ -1,0 +1,19 @@
+=== Анализ конвертации WayForPay ===
+Заказ в кабинете: 488.50 UAH
+Наша сумма: 10.00 EUR
+Курс WayForPay: 488.50 / 10.00 = 48.85 UAH за 1 EUR
+
+=== Наш API для заказа 08066c97-254e-499b-b707-25ba8570a9a5 ===
+{
+  "id": "08066c97-254e-499b-b707-25ba8570a9a5",
+  "status": "failed",
+  "total_amount": 10,
+  "currency": "EUR",
+  "is_paid": false
+}
+
+=== Логи коллбека ===
+Выполняем команду на VPS: cd /var/www/cv-project && docker compose logs backend | grep -E '08066c97-254e-499b-b707-25ba8570a9a5.*CB IN|08066c97-254e-499b-b707-25ba8570a9a5.*signature|08066c97-254e-499b-b707-25ba8570a9a5.*ACK'
+spawn ssh root@91.107.204.141 cd /var/www/cv-project && docker compose logs backend | grep -E '08066c97-254e-499b-b707-25ba8570a9a5.*CB IN|08066c97-254e-499b-b707-25ba8570a9a5.*signature|08066c97-254e-499b-b707-25ba8570a9a5.*ACK'
+Enter passphrase for key '/Users/alexey.nikolayenko/.ssh/id_ed25519': 
+time="2025-09-29T18:28:05Z" level=warning msg="The \"EUR2UAH\" variable is not set. Defaulting to a blank string."

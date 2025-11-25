@@ -1,0 +1,35 @@
+=== Тест PROD режима на VPS ===
+{
+  "id": "1a75574c-892f-4dac-9776-38d65364cd1b",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_test17",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "1a75574c-892f-4dac-9776-38d65364cd1b",
+    "orderDate": 1759169327,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "PROD",
+    "clientLastName": "VPS",
+    "clientEmail": "prod-vps-test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=1a75574c-892f-4dac-9776-38d65364cd1b",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #1a75574c-892f-4dac-9776-38d65364cd1b"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "c897d9b2a47ce965cd8121be754a9441"
+  }
+}

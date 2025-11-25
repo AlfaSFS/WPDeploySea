@@ -1,0 +1,54 @@
+User-agent: *
+Allow: /
+
+# Разрешаем всем ботам доступ к основным разделам
+Allow: /wp-content/themes/
+Allow: /wp-content/uploads/
+Allow: /wp-includes/
+Allow: /wp-admin/admin-ajax.php
+
+# Запрещаем доступ к служебным файлам
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/cache/
+Disallow: /wp-content/themes/*/assets/js/
+Disallow: /wp-content/themes/*/assets/css/
+Disallow: /*.log$
+Disallow: /readme.html
+Disallow: /license.txt
+
+# Разрешаем ИИ ботам
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: BingBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Sitemap
+Sitemap: https://seafarercv.com/sitemap.xml
+Sitemap: https://seafarercv.com/sitemap_index.xml
+
+# Crawl-delay для обычных ботов
+Crawl-delay: 1

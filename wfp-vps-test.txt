@@ -1,0 +1,35 @@
+=== Тест WFP_MODE на VPS ===
+{
+  "id": "135a0f27-1d16-4f8c-91aa-082fffe2412a",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_merch_n1",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "135a0f27-1d16-4f8c-91aa-082fffe2412a",
+    "orderDate": 1759168495,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "VPS",
+    "clientLastName": "Test",
+    "clientEmail": "vps-wfp-mode@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=135a0f27-1d16-4f8c-91aa-082fffe2412a",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #135a0f27-1d16-4f8c-91aa-082fffe2412a"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "6053548af6c13961ff97a77b6635674b"
+  }
+}

@@ -1,0 +1,127 @@
+# CV Project Docker Compose
+services:
+   wp_db:
+      image: mariadb:10.11
+      restart: always
+      environment:
+         MYSQL_DATABASE: ${WP_DB_NAME}
+         MYSQL_USER: ${WP_DB_USER}
+         MYSQL_PASSWORD: ${WP_DB_PASS}
+         MYSQL_ROOT_PASSWORD: ${WP_DB_ROOT}
+      volumes:
+         - wp_db_data:/var/lib/mysql
+      healthcheck:
+         test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+         timeout: 20s
+         retries: 10
+      networks:
+         - wp_network
+
+   orders_db:
+      image: mariadb:10.11
+      restart: always
+      environment:
+         MYSQL_DATABASE: ${ORD_DB_NAME}
+         MYSQL_USER: ${ORD_DB_USER}
+         MYSQL_PASSWORD: ${ORD_DB_PASS}
+         MYSQL_ROOT_PASSWORD: ${ORD_DB_ROOT}
+      volumes:
+         - orders_db_data:/var/lib/mysql
+      healthcheck:
+         test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+         timeout: 20s
+         retries: 10
+      networks:
+         - api_network
+
+   backend:
+      build: ./backend
+      restart: on-failure
+      environment:
+         PORT: 3000
+         NODE_ENV: development
+         ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+         UPLOAD_DIR: /app/uploads
+         # Database for orders
+         ORDERS_DB_HOST: orders_db
+         ORDERS_DB_PORT: 3306
+         ORDERS_DB_NAME: ${ORD_DB_NAME}
+         ORDERS_DB_USER: ${ORD_DB_USER}
+         ORDERS_DB_PASS: ${ORD_DB_PASS}
+         # Telegram Bot
+         TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+         TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
+         # WayForPay
+         WFP_MODE: ${WFP_MODE}
+         WAYFORPAY_ACCOUNT: ${WAYFORPAY_ACCOUNT}
+         WAYFORPAY_SECRET_KEY: ${WAYFORPAY_SECRET_KEY}
+         WAYFORPAY_DOMAIN: ${WAYFORPAY_DOMAIN}
+         WAYFORPAY_API_URL: ${WAYFORPAY_API_URL}
+         WAYFORPAY_SERVICE_URL: ${WAYFORPAY_SERVICE_URL}
+         WAYFORPAY_RETURN_URL: ${WAYFORPAY_RETURN_URL}
+         WAYFORPAY_CURRENCY: ${WAYFORPAY_CURRENCY}
+         EUR2UAH: ${EUR2UAH}
+      volumes:
+         - ./backend:/app
+         - ./backend/uploads:/app/uploads
+      depends_on:
+         orders_db:
+            condition: service_healthy
+      networks:
+         - api_network
+         - nginx_network
+
+   wordpress:
+      image: wordpress:6.5.5-php8.2-fpm
+      restart: always
+      environment:
+         WORDPRESS_DB_HOST: wp_db:3306
+         WORDPRESS_DB_USER: ${WP_DB_USER}
+         WORDPRESS_DB_PASSWORD: ${WP_DB_PASS}
+         WORDPRESS_DB_NAME: ${WP_DB_NAME}
+         WORDPRESS_DEBUG: 1
+         # Отключаем проверки обновлений для локальной среды
+         WORDPRESS_DISABLE_WP_CRON: 1
+         WORDPRESS_DISABLE_UPDATE_CHECKS: 1
+      volumes:
+         - ./wp-content:/var/www/html/wp-content
+         - wordpress_data:/var/www/html
+      depends_on:
+         wp_db:
+            condition: service_healthy
+      networks:
+         - wp_network
+         - nginx_network
+
+   nginx:
+      image: nginx:1.26-alpine
+      restart: always
+      ports:
+         - "${WP_PORT:-8080}:80"
+         - "443:443"
+      volumes:
+         - ./nginx/conf.d:/etc/nginx/conf.d
+         - ./wp-content:/var/www/html/wp-content
+         - wordpress_data:/var/www/html
+         - ./ssl:/var/www/cv-project/ssl
+      depends_on:
+         - wordpress
+         - backend
+      networks:
+         - wp_network
+         - nginx_network
+         - api_network
+
+volumes:
+   wp_db_data:
+   orders_db_data:
+   wordpress_data:
+   backend_uploads:
+
+networks:
+   wp_network:
+      driver: bridge
+   api_network:
+      driver: bridge
+   nginx_network:
+      driver: bridge

@@ -1,0 +1,39 @@
+=== Backend Logs (10-20 строк вокруг [WFP] CB IN) ===
+
+Поскольку реальные коллбеки от WayForPay не приходили во время тестирования,
+показываем логи создания заказов и симуляции платежей:
+
+cv-project_backend_1  | Creating payment data for order: 25acc001-8fee-495c-968c-21533e249a2a
+cv-project_backend_1  | Total amount: 1.00 Currency: EUR
+cv-project_backend_1  | Items: undefined
+cv-project_backend_1  | Amount in UAH: 40.00
+cv-project_backend_1  | Product prices: [ '40.00' ]
+cv-project_backend_1  | Payment data created: {
+cv-project_backend_1  |   merchantAccount: 'test_merch_n1',
+cv-project_backend_1  |   merchantDomainName: 'seafarer-cv.com',
+cv-project_backend_1  |   merchantTransactionType: 'AUTO',
+cv-project_backend_1  |   merchantTransactionSecureType: 'AUTO',
+cv-project_backend_1  |   orderReference: '25acc001-8fee-495c-968c-21533e249a2a',
+cv-project_backend_1  |   orderDate: 1759166627,
+cv-project_backend_1  |   amount: '40.00',
+cv-project_backend_1  |   currency: 'UAH',
+cv-project_backend_1  |   clientFirstName: 'Test',
+cv-project_backend_1  |   clientLastName: 'User',
+cv-project_backend_1  |   clientEmail: 'test@example.com',
+cv-project_backend_1  |   clientPhone: '+380123456789',
+cv-project_backend_1  |   returnUrl: 'https://seafarer-cv.com/payment-success?order=25acc001-8fee-495c-968c-21533e249a2a',
+cv-project_backend_1  |   serviceUrl: 'https://seafarer-cv.com/api/payments/wayforpay/callback',
+cv-project_backend_1  |   productName: [ 'CV Order #25acc001-8fee-495c-968c-21533e249a2a' ],
+cv-project_backend_1  |   productCount: [ 1 ],
+cv-project_backend_1  |   productPrice: [ '40.00' ],
+cv-project_backend_1  |   merchantAuthType: 'SimpleSignature',
+cv-project_backend_1  |   merchantSignature: 'a26a6255b416749af783c0ee4768df88'
+cv-project_backend_1  | }
+cv-project_backend_1  | === Тестовая симуляция успешного платежа ===
+cv-project_backend_1  | Order ID: 25acc001-8fee-495c-968c-21533e249a2a
+cv-project_backend_1  | ✅ Заказ успешно оплачен (тест)
+
+ПРИМЕЧАНИЕ: Реальные коллбеки WayForPay будут содержать строки вида:
+[WFP] CB IN { ct: 'application/x-www-form-urlencoded', orderReference: 'xxx', transactionStatus: 'Approved', amount: '40.00', currency: 'UAH', reasonCode: '1100' }
+[WFP] signature OK <xxx>
+[WFP] ACK <xxx> approved

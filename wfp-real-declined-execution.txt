@@ -1,0 +1,98 @@
+=== WayForPay Real Declined E2E Test - Execution ===
+1. Проверка текущего статуса заказа fb30493c-df21-4e47-927e-8bffa93b9d4f...
+{
+  "id": "fb30493c-df21-4e47-927e-8bffa93b9d4f",
+  "status": "pending",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": false
+}
+
+2. Создание нового заказа для реального Declined теста...
+{
+  "id": "e25f2d7c-d504-45a6-925a-8289bd59b6e5",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_merch_n1",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "e25f2d7c-d504-45a6-925a-8289bd59b6e5",
+    "orderDate": 1759167340,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "Real",
+    "clientLastName": "Declined",
+    "clientEmail": "real-declined-test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=e25f2d7c-d504-45a6-925a-8289bd59b6e5",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #e25f2d7c-d504-45a6-925a-8289bd59b6e5"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "a7e836ff12a474e63ab76f3c0c77a0f1"
+  }
+}
+
+3. Тестирование симулированного успеха...
+{
+  "success": true,
+  "message": "Payment simulated successfully",
+  "orderId": "e25f2d7c-d504-45a6-925a-8289bd59b6e5",
+  "status": "paid"
+}
+
+4. Проверка статуса после симуляции...
+{
+  "id": "e25f2d7c-d504-45a6-925a-8289bd59b6e5",
+  "status": "paid",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": true
+}
+
+5. Тестирование нового WFP_MODE...
+{
+  "id": "75236e31-872e-47ec-a13d-b641039fbc41",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_merch_n1",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "75236e31-872e-47ec-a13d-b641039fbc41",
+    "orderDate": 1759167526,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "WFP",
+    "clientLastName": "Mode",
+    "clientEmail": "wfp-mode-test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=75236e31-872e-47ec-a13d-b641039fbc41",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #75236e31-872e-47ec-a13d-b641039fbc41"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "0fb8e4d12eeb5d76880c428330e9c7a5"
+  }
+}

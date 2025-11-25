@@ -1,0 +1,35 @@
+/*
+Theme Name: CV Theme
+Description: Custom theme for CV project
+Author: Oleksiy Nikolayenko
+Version: 1.0
+Requires at least: 5.0
+Tested up to: 6.8
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: cv-theme
+*/
+
+/* ===== СТИЛІ ДЛЯ СТОРІНОК ПОЛІТИК ===== */
+
+/* Стилі для нумерованих списків у документах політик */
+.rules-list {
+   counter-reset: item;
+   list-style-type: none;
+}
+
+.rules-list ol li {
+   display: block;
+   counter-increment: item;
+}
+
+.rules-sublist {
+   margin-left: 20px;
+}
+
+.rules-disc {
+   list-style: disc;
+   margin-left: 20px;
+}
+

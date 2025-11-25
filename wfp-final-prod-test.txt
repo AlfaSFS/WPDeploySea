@@ -1,0 +1,35 @@
+=== Финальный тест PROD режима ===
+{
+  "id": "82558cd0-9bdd-4830-bdae-4b09b736d281",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_test17",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "82558cd0-9bdd-4830-bdae-4b09b736d281",
+    "orderDate": 1759169394,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "Final",
+    "clientLastName": "PROD",
+    "clientEmail": "final-prod-test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=82558cd0-9bdd-4830-bdae-4b09b736d281",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #82558cd0-9bdd-4830-bdae-4b09b736d281"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "718579b0094f839e333c8a1eeab41353"
+  }
+}

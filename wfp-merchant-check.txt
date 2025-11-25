@@ -1,0 +1,30 @@
+=== Проверка мерчанта ===
+Локальный .env:
+WAYFORPAY_ACCOUNT=test_test17
+WAYFORPAY_SECRET_KEY=91f66d437368a1c35b1d12fcaed80bbb62e9d975
+
+VPS .env:
+Выполняем команду на VPS: cd /var/www/cv-project && grep -E 'WAYFORPAY_ACCOUNT|WAYFORPAY_SECRET_KEY' .env
+spawn ssh root@91.107.204.141 cd /var/www/cv-project && grep -E 'WAYFORPAY_ACCOUNT|WAYFORPAY_SECRET_KEY' .env
+Enter passphrase for key '/Users/alexey.nikolayenko/.ssh/id_ed25519': 
+WAYFORPAY_ACCOUNT=test_test17
+WAYFORPAY_SECRET_KEY=91f66d437368a1c35b1d12fcaed80bbb62e9d975
+
+=== Проверка последнего заказа ===
+Order ID: fc07b57b-9db4-4dfa-ac18-4a05d514ef95
+{
+  "id": "fc07b57b-9db4-4dfa-ac18-4a05d514ef95",
+  "status": "paid",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": true
+}
+
+=== Создание тестового заказа для проверки ===
+{
+  "merchantAccount": "test_test17",
+  "orderReference": "3598ec84-3232-4437-9ff0-0a451bb9571c",
+  "amount": "1.00",
+  "currency": "EUR",
+  "merchantSignature": "9d4eea7d6f112226467b96835811a9c3"
+}

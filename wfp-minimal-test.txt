@@ -1,0 +1,39 @@
+=== Создание заказа с минимальной суммой ===
+Сумма: 1 грн (≈0.025 EUR)
+Дата: Mon Sep 29 21:33:39 EEST 2025
+
+=== Заказ для реального тестирования ===
+{
+  "id": "34eca164-209b-4406-91cd-23e037a59ced",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_test17",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "34eca164-209b-4406-91cd-23e037a59ced",
+    "orderDate": 1759170829,
+    "amount": "0.03",
+    "currency": "EUR",
+    "clientFirstName": "Real",
+    "clientLastName": "Minimal",
+    "clientEmail": "real-minimal-test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=34eca164-209b-4406-91cd-23e037a59ced",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #34eca164-209b-4406-91cd-23e037a59ced"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "0.03"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "ed4fcef1c0938d105eeabde56a256f81"
+  }
+}

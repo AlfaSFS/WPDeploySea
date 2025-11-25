@@ -1,0 +1,13 @@
+=== Nginx Access Log (POST /api/payments/wayforpay/callback 200) ===
+
+Во время тестирования реальные коллбеки от WayForPay не приходили,
+поэтому показываем примеры запросов к API:
+
+Пример строки nginx access.log для коллбека WayForPay:
+172.71.183.173 - - [29/Sep/2025:17:04:39 +0000] "POST /api/payments/wayforpay/callback HTTP/2.0" 200 123 "-" "WayForPay/1.0" "185.242.226.106"
+
+ПРИМЕЧАНИЕ: Реальные коллбеки будут содержать:
+- IP адрес WayForPay серверов
+- POST /api/payments/wayforpay/callback
+- HTTP/2.0 200 (успешный ответ)
+- User-Agent: WayForPay/1.0

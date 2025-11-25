@@ -1,0 +1,31 @@
+{
+   "negative_case": {
+      "order_id": "aa155f7b-3069-418a-b653-476724057295",
+      "status": "pending",
+      "description": "Заказ для негативного тестирования (остается pending, так как реальный declined коллбек не приходил)",
+      "api_response": {
+         "id": "aa155f7b-3069-418a-b653-476724057295",
+         "status": "pending",
+         "total_amount": 1,
+         "currency": "EUR",
+         "is_paid": false
+      }
+   },
+   "simulated_success": {
+      "order_id": "25acc001-8fee-495c-968c-21533e249a2a",
+      "status": "paid",
+      "description": "Заказ с симулированным успешным платежом",
+      "api_response": {
+         "id": "25acc001-8fee-495c-968c-21533e249a2a",
+         "status": "paid",
+         "total_amount": 1,
+         "currency": "EUR",
+         "is_paid": true
+      }
+   },
+   "test_notes": {
+      "negative_testing": "Для полного негативного тестирования нужно использовать тест-карту 4111 1111 1111 1111 на hosted checkout WayForPay",
+      "real_callback": "Реальные коллбеки WayForPay будут содержать [WFP] CB IN, signature OK/FAIL, ACK логи",
+      "telegram": "Telegram уведомления настроены, но chat_id требует обновления (ошибка 404)"
+   }
+}

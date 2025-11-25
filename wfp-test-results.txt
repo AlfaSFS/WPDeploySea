@@ -1,0 +1,115 @@
+=== WayForPay E2E Smoke Test ===
+Base URL: https://seafarer-cv.com
+
+1. Проверка health endpoint...
+{
+  "ok": true,
+  "service": "orders-api"
+}
+
+2. Создание тестового заказа...
+{
+  "id": "25acc001-8fee-495c-968c-21533e249a2a",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_merch_n1",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "25acc001-8fee-495c-968c-21533e249a2a",
+    "orderDate": 1759166627,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "Test",
+    "clientLastName": "User",
+    "clientEmail": "test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=25acc001-8fee-495c-968c-21533e249a2a",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #25acc001-8fee-495c-968c-21533e249a2a"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "a26a6255b416749af783c0ee4768df88"
+  }
+}
+
+3. Проверка статуса заказа (до симуляции)...
+{
+  "id": "25acc001-8fee-495c-968c-21533e249a2a",
+  "status": "pending",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": false
+}
+
+4. Симуляция успешного платежа...
+{
+  "success": true,
+  "message": "Payment simulated successfully",
+  "orderId": "25acc001-8fee-495c-968c-21533e249a2a",
+  "status": "paid"
+}
+
+5. Проверка статуса заказа (после симуляции)...
+{
+  "id": "25acc001-8fee-495c-968c-21533e249a2a",
+  "status": "paid",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": true
+}
+
+6. Создание заказа для негативного тестирования...
+{
+  "id": "aa155f7b-3069-418a-b653-476724057295",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_merch_n1",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "aa155f7b-3069-418a-b653-476724057295",
+    "orderDate": 1759166648,
+    "amount": "40.00",
+    "currency": "UAH",
+    "clientFirstName": "Negative",
+    "clientLastName": "Test",
+    "clientEmail": "negative-test@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=aa155f7b-3069-418a-b653-476724057295",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #aa155f7b-3069-418a-b653-476724057295"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "40.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "6f892a3980a0b26095f258b5f5e8b2dd"
+  }
+}
+
+7. Статус негативного заказа (остается pending)...
+{
+  "id": "aa155f7b-3069-418a-b653-476724057295",
+  "status": "pending",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": false
+}

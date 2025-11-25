@@ -1,0 +1,55 @@
+=== Проверка заказа в БД ===
+Order ID: 08066c97-254e-499b-b707-25ba8570a9a5
+
+=== Создание тестового заказа на 1 EUR ===
+{
+  "id": "fc07b57b-9db4-4dfa-ac18-4a05d514ef95",
+  "status": "pending",
+  "cv_filename": null,
+  "message": "Order created successfully",
+  "payment_url": "https://secure.wayforpay.com/pay",
+  "payment_data": {
+    "merchantAccount": "test_test17",
+    "merchantDomainName": "seafarer-cv.com",
+    "merchantTransactionType": "AUTO",
+    "merchantTransactionSecureType": "AUTO",
+    "orderReference": "fc07b57b-9db4-4dfa-ac18-4a05d514ef95",
+    "orderDate": 1759170034,
+    "amount": "1.00",
+    "currency": "EUR",
+    "clientFirstName": "Test",
+    "clientLastName": "1EUR",
+    "clientEmail": "test-1eur@example.com",
+    "clientPhone": "+380123456789",
+    "returnUrl": "https://seafarer-cv.com/payment-success?order=fc07b57b-9db4-4dfa-ac18-4a05d514ef95",
+    "serviceUrl": "https://seafarer-cv.com/api/payments/wayforpay/callback",
+    "productName": [
+      "CV Order #fc07b57b-9db4-4dfa-ac18-4a05d514ef95"
+    ],
+    "productCount": [
+      1
+    ],
+    "productPrice": [
+      "1.00"
+    ],
+    "merchantAuthType": "SimpleSignature",
+    "merchantSignature": "563ff971656f74b37de85f0dafe73e21"
+  }
+}
+
+=== Симуляция успешного платежа ===
+{
+  "success": true,
+  "message": "Payment simulated successfully",
+  "orderId": "fc07b57b-9db4-4dfa-ac18-4a05d514ef95",
+  "status": "paid"
+}
+
+=== Статус после симуляции ===
+{
+  "id": "fc07b57b-9db4-4dfa-ac18-4a05d514ef95",
+  "status": "paid",
+  "total_amount": 1,
+  "currency": "EUR",
+  "is_paid": true
+}
