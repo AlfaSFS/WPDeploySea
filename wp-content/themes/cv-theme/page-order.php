@@ -37,7 +37,7 @@ get_header(); ?>
                             </label>
                             <span class="checkmark"></span>
                             <div class="error-message" data-for="email"></div>
-                            <sub>Cюди надійде підтвердження та звіт</sub>
+							<sub><?php pll_e("Сюди надійде підтвердження та звіт"); ?></sub>
                         </div>
                         <div class="phone-wrap">
                             <label for="phone">

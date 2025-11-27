@@ -219,30 +219,154 @@
 
                 <div class="Buscet-wrap">
 <div class="language-switcher">
-    <ul>
-        <?php if (function_exists('pll_the_languages')) :
-            $langs = pll_the_languages([
-                'raw'           => 1,  // повернути як масив
-                'hide_if_empty' => 0,
-                'hide_current'  => 0,
-            ]);
-
-            if (!empty($langs)) :
-                foreach ($langs as $lang) :
-                    $class = $lang['current_lang'] ? 'current-lang' : '';
-                    $slug  = $lang['slug']; // uk / ru / en
-                    $url   = $lang['url'];  // ПРАВИЛЬНИЙ URL для цієї мови
-        ?>
-                    <li class="<?php echo esc_attr($class); ?>">
-                        <a href="<?php echo esc_url($url); ?>">
-                            <?php echo esc_html(strtoupper($slug)); ?>
-                        </a>
-                    </li>
-        <?php
-                endforeach;
-            endif;
-        endif; ?>
-    </ul>
+    <style>
+    .language-switcher {
+        position: relative;
+        margin-right: 16px;
+    }
+    .language-switcher .current-language {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #0D2237;
+        background: transparent;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .language-switcher .current-language:hover {
+        background: rgba(13, 34, 55, 0.05);
+        border-color: #0D2237;
+    }
+    .language-switcher .current-language::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid #0D2237;
+        transition: transform 0.2s ease;
+    }
+    .language-switcher.open .current-language::after {
+        transform: rotate(180deg);
+    }
+    .language-switcher .dropdown-langs {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        min-width: 100%;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        margin: 0;
+        padding: 4px 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: all 0.2s ease;
+        z-index: 1000;
+    }
+    .language-switcher.open .dropdown-langs {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    .language-switcher .dropdown-langs li {
+        margin: 0;
+    }
+    .language-switcher .dropdown-langs a {
+        display: block;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6b7280;
+        text-decoration: none;
+        transition: all 0.15s ease;
+    }
+    .language-switcher .dropdown-langs a:hover {
+        background: rgba(13, 34, 55, 0.05);
+        color: #0D2237;
+    }
+    .language-switcher .dropdown-langs .current-lang a {
+        color: #0D2237;
+        font-weight: 600;
+        background: rgba(13, 34, 55, 0.08);
+    }
+    @media (max-width: 768px) {
+        .language-switcher {
+            margin-right: 12px;
+        }
+        .language-switcher .current-language {
+            padding: 5px 8px;
+            font-size: 12px;
+        }
+        .language-switcher .dropdown-langs a {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+    }
+    </style>
+    <?php if (function_exists('pll_the_languages')) :
+        $langs = pll_the_languages([
+            'raw'           => 1,
+            'hide_if_empty' => 0,
+            'hide_current'  => 0,
+        ]);
+        if (!empty($langs)) :
+            $current_slug = 'UK';
+            foreach ($langs as $lang) {
+                if ($lang['current_lang']) {
+                    $current_slug = strtoupper($lang['slug']);
+                    break;
+                }
+            }
+    ?>
+        <button class="current-language" aria-expanded="false" aria-haspopup="true">
+            <?php echo esc_html($current_slug); ?>
+        </button>
+        <ul class="dropdown-langs">
+            <?php foreach ($langs as $lang) :
+                $class = $lang['current_lang'] ? 'current-lang' : '';
+                $slug  = $lang['slug'];
+                $url   = $lang['url'];
+            ?>
+                <li class="<?php echo esc_attr($class); ?>">
+                    <a href="<?php echo esc_url($url); ?>">
+                        <?php echo esc_html(strtoupper($slug)); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php
+        endif;
+    endif; ?>
+    <script>
+    (function() {
+        const switcher = document.querySelector('.language-switcher');
+        const btn = switcher?.querySelector('.current-language');
+        if (!btn) return;
+        
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            switcher.classList.toggle('open');
+            btn.setAttribute('aria-expanded', switcher.classList.contains('open'));
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!switcher.contains(e.target)) {
+                switcher.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+    </script>
 </div>
 
                    
